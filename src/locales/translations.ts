@@ -293,15 +293,15 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
       "PernikahApp hadir sebagai jembatan untuk belajar tentang fondasi keluarga sakinah (Marriage Plan) dan memudahkan persiapan pesta pernikahan (Wedding Reception).",
     aboutTitle: "Tentang PernikahApp",
     aboutSectionP1:
-      "Seringkali pasangan yang hendak melangsungkan pernikahan mencurahkan 99% energi mereka hanya untuk hari pernikahan (the Wedding Day). Mereka sibuk merancang gaun, memilih hiasan bunga dekorasi, mencoba sampel katering makanan, dan mencocokkan jadwal juru foto. Namun, mereka kerap kali lupa mempersiapkan bekal sebelum pernikahan untuk kehidupan setelah hari H (the Marriage Life) yang akan berlangsung seumur hidup.",
+      "Seringkali pasangan yang hendak melangsungkan pernikahan mencurahkan sebagian besar energi mereka hanya untuk hari pernikahan (the Wedding Day). Mereka sibuk merancang gaun, memilih hiasan bunga dekorasi, mencoba sampel katering makanan, dan mencocokkan jadwal juru foto. Namun, mereka kerap kali lupa mempersiapkan bekal sebelum pernikahan untuk kehidupan setelah hari H (the Marriage Life) yang akan berlangsung seumur hidup.",
     aboutSectionP2:
       "PernikahApp didesain sebagai Resource Hub. Kami mengumpulkan & mengkurasi akun-akun edukatif pilihan, buku referensi, video kajian terbaik, hingga checklist persiapan penikahan, YouTube, Instagram serta Web kredibel sebagai sumber rujukan.",
     weddingPlanTitle: "Wedding Plan (Hari H)",
     weddingPlanDesc:
-      "Membantu kelancaran administrasi KUA, bimbingan pranikah resmi, serta merangkum basis rekomendasi Vendor Catering, Venue premium, Wedding Organizer kredibel, dan Fotografi ramah di kantong.",
+      "Membantu kelancaran persiapan pesta perniakahan serta merangkum berbagai rekomendasi Vendor perniakahan seperti: Catering, Venue premium, Wedding Organizer terpercaya, dan Fotografi ramah di kantong.",
     marriagePlanTitle: "Marriage Plan (Selamanya)",
     marriagePlanDesc:
-      "Mengedukasi aspek krusial: perkenalan syar'i (Ta'aruf), dasar-dasar hukum fiqih, pilar psikologi rumah tangga, pemetaan kecocokan kepribadian, hingga bekal parenting mendidik anak.",
+      "Mengedukasi aspek krusial: perkenalan sebelum berkomitmen, dasar-dasar hukum fiqih, pilar psikologi rumah tangga, pemetaan kecocokan kepribadian, hingga bekal parenting.",
     valueCurationTitle: "Kurasi Terseleksi",
     valueCurationDesc:
       "Setiap rekomendasi akun, buku, dan kursus murni dikurasi demi menjaga kesesuaian kualitas.",
