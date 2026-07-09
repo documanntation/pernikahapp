@@ -1,34 +1,40 @@
-import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
-import { 
-  getFirestore, 
-  collection, 
-  getDocs, 
+import { initializeApp, getApps } from "firebase/app";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  User,
+} from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  getDocs,
   getDoc,
-  addDoc, 
-  updateDoc, 
+  addDoc,
+  updateDoc,
   deleteDoc,
-  doc, 
+  doc,
   getDocFromServer,
   query,
   orderBy,
   limit,
   increment,
-  setDoc
-} from 'firebase/firestore';
-import { Resource, UserSubmission } from './types';
-import { INITIAL_RESOURCES } from './resourcesData';
+  setDoc,
+} from "firebase/firestore";
+import { Resource, UserSubmission } from "./types";
+import { INITIAL_RESOURCES } from "./resourcesData";
 
 // Safe Import of Config
-import firebaseConfig from './firebase-applet-config.json';
+import firebaseConfig from "./firebase-applet-config.json";
 
 export enum OperationType {
-  CREATE = 'create',
-  UPDATE = 'update',
-  DELETE = 'delete',
-  LIST = 'list',
-  GET = 'get',
-  WRITE = 'write',
+  CREATE = "create",
+  UPDATE = "update",
+  DELETE = "delete",
+  LIST = "list",
+  GET = "get",
+  WRITE = "write",
 }
 
 export interface FirestoreErrorInfo {
@@ -44,7 +50,11 @@ export interface FirestoreErrorInfo {
 }
 
 // Check if config is a valid firebase configuration containing an apiKey
-const hasValidConfig = firebaseConfig && typeof firebaseConfig === 'object' && 'apiKey' in firebaseConfig && !!(firebaseConfig as any).apiKey;
+const hasValidConfig =
+  firebaseConfig &&
+  typeof firebaseConfig === "object" &&
+  "apiKey" in firebaseConfig &&
+  !!(firebaseConfig as any).apiKey;
 
 let db: any = null;
 let auth: any = null;
@@ -52,7 +62,8 @@ let isFirebaseReady = false;
 
 if (hasValidConfig) {
   try {
-    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    const app =
+      getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
     db = getFirestore(app, (firebaseConfig as any).firestoreDatabaseId);
     auth = getAuth(app);
     isFirebaseReady = true;
@@ -60,10 +71,15 @@ if (hasValidConfig) {
     // Validate connection online as required by Firebase skill
     const testConnection = async () => {
       try {
-        await getDocFromServer(doc(db, 'test', 'connection'));
+        await getDocFromServer(doc(db, "test", "connection"));
       } catch (error) {
-        if (error instanceof Error && error.message.includes('the client is offline')) {
-          console.error("Please check your Firebase configuration: Client is offline.");
+        if (
+          error instanceof Error &&
+          error.message.includes("the client is offline")
+        ) {
+          console.error(
+            "Please check your Firebase configuration: Client is offline.",
+          );
         }
       }
     };
@@ -77,7 +93,11 @@ if (hasValidConfig) {
 export { db, auth, isFirebaseReady };
 
 // Hardened error handler compliance
-function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+function handleFirestoreError(
+  error: unknown,
+  operationType: OperationType,
+  path: string | null,
+) {
   const errInfo: FirestoreErrorInfo = {
     error: error instanceof Error ? error.message : String(error),
     authInfo: {
@@ -87,9 +107,9 @@ function handleFirestoreError(error: unknown, operationType: OperationType, path
       isAnonymous: auth?.currentUser?.isAnonymous || null,
     },
     operationType,
-    path
+    path,
   };
-  console.error('Firestore Error: ', JSON.stringify(errInfo));
+  console.error("Firestore Error: ", JSON.stringify(errInfo));
   throw new Error(JSON.stringify(errInfo));
 }
 
@@ -121,12 +141,15 @@ export async function logoutUser(): Promise<void> {
 // ==========================================
 
 // KEY FOR LOCALSTORAGE
-const STORAGE_RESOURCES_KEY = 'pernikah_resources_local';
-const STORAGE_SUBMISSIONS_KEY = 'pernikah_submissions_local';
+const STORAGE_RESOURCES_KEY = "pernikah_resources_local";
+const STORAGE_SUBMISSIONS_KEY = "pernikah_submissions_local";
 
 // Initialize local storage seeds if empty
 if (!localStorage.getItem(STORAGE_RESOURCES_KEY)) {
-  localStorage.setItem(STORAGE_RESOURCES_KEY, JSON.stringify(INITIAL_RESOURCES));
+  localStorage.setItem(
+    STORAGE_RESOURCES_KEY,
+    JSON.stringify(INITIAL_RESOURCES),
+  );
 }
 if (!localStorage.getItem(STORAGE_SUBMISSIONS_KEY)) {
   localStorage.setItem(STORAGE_SUBMISSIONS_KEY, JSON.stringify([]));
@@ -134,19 +157,24 @@ if (!localStorage.getItem(STORAGE_SUBMISSIONS_KEY)) {
 
 // 1. GET ALL CURATED RESOURCES (Firestore or fallback to LocallStorage)
 export async function fetchResources(): Promise<Resource[]> {
-  const path = 'resources';
+  const path = "resources";
   if (isFirebaseReady && db) {
     try {
-      const q = query(collection(db, path), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, path), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
       const items: Resource[] = [];
+      const itemIds = new Set<string>();
       snapshot.forEach((docSnap) => {
-        items.push({ id: docSnap.id, ...docSnap.data() } as Resource);
+        const item = { id: docSnap.id, ...docSnap.data() } as Resource;
+        items.push(item);
+        itemIds.add(item.id);
       });
-      // If Firestore database has no resources, seed them inline!
-      if (items.length === 0) {
-        console.log("Firestore empty. Seeding initial resources to Cloud DB...");
-        for (const res of INITIAL_RESOURCES) {
+
+      // Synchronize and seed any missing INITIAL_RESOURCES into Firestore dynamically
+      let seededAny = false;
+      for (const res of INITIAL_RESOURCES) {
+        if (!itemIds.has(res.id)) {
+          console.log(`Seeding missing resource ${res.id} to Cloud DB...`);
           const docId = res.id;
           await setDoc(doc(db, path, docId), {
             title: res.title,
@@ -157,11 +185,21 @@ export async function fetchResources(): Promise<Resource[]> {
             thumbnailUrl: res.thumbnailUrl || "",
             likes: res.likes || 0,
             creator: res.creator || "",
-            createdAt: res.createdAt
+            createdAt: res.createdAt,
           });
           items.push(res);
+          seededAny = true;
         }
       }
+
+      if (seededAny) {
+        // Re-sort items by createdAt desc so that the order is preserved nicely
+        items.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+      }
+
       return items;
     } catch (error) {
       handleFirestoreError(error, OperationType.GET, path);
@@ -175,12 +213,14 @@ export async function fetchResources(): Promise<Resource[]> {
 }
 
 // 2. CREATE A RECPMMENDATION RESOURCE (CRU - Create)
-export async function addResource(resData: Omit<Resource, 'id' | 'likes' | 'createdAt'>): Promise<Resource> {
-  const path = 'resources';
-  const newResource: Omit<Resource, 'id'> = {
+export async function addResource(
+  resData: Omit<Resource, "id" | "likes" | "createdAt">,
+): Promise<Resource> {
+  const path = "resources";
+  const newResource: Omit<Resource, "id"> = {
     ...resData,
     likes: 0,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   if (isFirebaseReady && db) {
@@ -193,11 +233,11 @@ export async function addResource(resData: Omit<Resource, 'id' | 'likes' | 'crea
   }
 
   // Backup Local Storage execution
-  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || "[]";
   const localList: Resource[] = JSON.parse(raw);
   const created: Resource = {
-    id: 'res-' + Math.random().toString(36).substr(2, 9),
-    ...newResource
+    id: "res-" + Math.random().toString(36).substr(2, 9),
+    ...newResource,
   };
   localList.unshift(created);
   localStorage.setItem(STORAGE_RESOURCES_KEY, JSON.stringify(localList));
@@ -209,9 +249,9 @@ export async function likeResource(id: string): Promise<void> {
   const path = `resources/${id}`;
   if (isFirebaseReady && db) {
     try {
-      const docRef = doc(db, 'resources', id);
+      const docRef = doc(db, "resources", id);
       await updateDoc(docRef, {
-        likes: increment(1)
+        likes: increment(1),
       });
       return;
     } catch (error) {
@@ -220,9 +260,9 @@ export async function likeResource(id: string): Promise<void> {
   }
 
   // Local Storage update
-  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || "[]";
   const localList: Resource[] = JSON.parse(raw);
-  const index = localList.findIndex(item => item.id === id);
+  const index = localList.findIndex((item) => item.id === id);
   if (index !== -1) {
     localList[index].likes += 1;
     localStorage.setItem(STORAGE_RESOURCES_KEY, JSON.stringify(localList));
@@ -231,10 +271,10 @@ export async function likeResource(id: string): Promise<void> {
 
 // 4. FETCH ALL USER SUBMISSIONS (Topic Requests / Recommendations)
 export async function fetchUserSubmissions(): Promise<UserSubmission[]> {
-  const path = 'user_submissions';
+  const path = "user_submissions";
   if (isFirebaseReady && db) {
     try {
-      const q = query(collection(db, path), orderBy('createdAt', 'desc'));
+      const q = query(collection(db, path), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
       const items: UserSubmission[] = [];
       snapshot.forEach((docSnap) => {
@@ -252,13 +292,15 @@ export async function fetchUserSubmissions(): Promise<UserSubmission[]> {
 }
 
 // 5. SUBMIT TOPIC REQUEST OR RECOMMENDATION (CRU - Create)
-export async function addUserSubmission(sub: Omit<UserSubmission, 'id' | 'likes' | 'createdAt'>): Promise<UserSubmission> {
-  const path = 'user_submissions';
-  const itemData: Omit<UserSubmission, 'id'> = {
+export async function addUserSubmission(
+  sub: Omit<UserSubmission, "id" | "likes" | "createdAt">,
+): Promise<UserSubmission> {
+  const path = "user_submissions";
+  const itemData: Omit<UserSubmission, "id"> = {
     ...sub,
     likes: 0,
     createdAt: new Date().toISOString(),
-    status: 'pending'
+    status: "pending",
   };
 
   if (isFirebaseReady && db) {
@@ -272,11 +314,11 @@ export async function addUserSubmission(sub: Omit<UserSubmission, 'id' | 'likes'
   }
 
   // Local Storage Fallback
-  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || "[]";
   const localList: UserSubmission[] = JSON.parse(raw);
   const created: UserSubmission = {
-    id: 'sub-' + Math.random().toString(36).substr(2, 9),
-    ...itemData
+    id: "sub-" + Math.random().toString(36).substr(2, 9),
+    ...itemData,
   };
   localList.unshift(created);
   localStorage.setItem(STORAGE_SUBMISSIONS_KEY, JSON.stringify(localList));
@@ -284,16 +326,19 @@ export async function addUserSubmission(sub: Omit<UserSubmission, 'id' | 'likes'
 }
 
 // 6. EDIT/UPDATE OWN SUBMISSION (CRU - Update)
-export async function updateUserSubmission(id: string, updatedFields: Partial<Omit<UserSubmission, 'id' | 'createdAt' | 'likes'>>): Promise<void> {
+export async function updateUserSubmission(
+  id: string,
+  updatedFields: Partial<Omit<UserSubmission, "id" | "createdAt" | "likes">>,
+): Promise<void> {
   const path = `user_submissions/${id}`;
   const now = new Date().toISOString();
-  
+
   if (isFirebaseReady && db) {
     try {
-      const docRef = doc(db, 'user_submissions', id);
+      const docRef = doc(db, "user_submissions", id);
       await updateDoc(docRef, {
         ...updatedFields,
-        updatedAt: now
+        updatedAt: now,
       });
       return;
     } catch (error) {
@@ -302,14 +347,14 @@ export async function updateUserSubmission(id: string, updatedFields: Partial<Om
   }
 
   // Local Update fallback
-  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || "[]";
   const localList: UserSubmission[] = JSON.parse(raw);
-  const index = localList.findIndex(item => item.id === id);
+  const index = localList.findIndex((item) => item.id === id);
   if (index !== -1) {
     localList[index] = {
       ...localList[index],
       ...updatedFields,
-      updatedAt: now
+      updatedAt: now,
     };
     localStorage.setItem(STORAGE_SUBMISSIONS_KEY, JSON.stringify(localList));
   }
@@ -320,10 +365,10 @@ export async function likeUserSubmission(id: string): Promise<void> {
   const path = `user_submissions/${id}`;
   if (isFirebaseReady && db) {
     try {
-      const docRef = doc(db, 'user_submissions', id);
+      const docRef = doc(db, "user_submissions", id);
       await updateDoc(docRef, {
         likes: increment(1),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       });
       return;
     } catch (error) {
@@ -332,9 +377,9 @@ export async function likeUserSubmission(id: string): Promise<void> {
   }
 
   // Local storage vote fallback
-  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || "[]";
   const localList: UserSubmission[] = JSON.parse(raw);
-  const index = localList.findIndex(item => item.id === id);
+  const index = localList.findIndex((item) => item.id === id);
   if (index !== -1) {
     localList[index].likes += 1;
     localList[index].updatedAt = new Date().toISOString();
@@ -347,7 +392,7 @@ export async function deleteResource(id: string): Promise<void> {
   const path = `resources/${id}`;
   if (isFirebaseReady && db) {
     try {
-      const docRef = doc(db, 'resources', id);
+      const docRef = doc(db, "resources", id);
       await deleteDoc(docRef);
       return;
     } catch (error) {
@@ -356,9 +401,9 @@ export async function deleteResource(id: string): Promise<void> {
   }
 
   // Local Storage fallback
-  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_RESOURCES_KEY) || "[]";
   const localList: Resource[] = JSON.parse(raw);
-  const updatedList = localList.filter(item => item.id !== id);
+  const updatedList = localList.filter((item) => item.id !== id);
   localStorage.setItem(STORAGE_RESOURCES_KEY, JSON.stringify(updatedList));
 }
 
@@ -367,7 +412,7 @@ export async function deleteUserSubmission(id: string): Promise<void> {
   const path = `user_submissions/${id}`;
   if (isFirebaseReady && db) {
     try {
-      const docRef = doc(db, 'user_submissions', id);
+      const docRef = doc(db, "user_submissions", id);
       await deleteDoc(docRef);
       return;
     } catch (error) {
@@ -376,9 +421,9 @@ export async function deleteUserSubmission(id: string): Promise<void> {
   }
 
   // Local Storage fallback
-  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || '[]';
+  const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || "[]";
   const localList: UserSubmission[] = JSON.parse(raw);
-  const updatedList = localList.filter(item => item.id !== id);
+  const updatedList = localList.filter((item) => item.id !== id);
   localStorage.setItem(STORAGE_SUBMISSIONS_KEY, JSON.stringify(updatedList));
 }
 
@@ -387,23 +432,23 @@ export async function approveUserSubmission(id: string): Promise<void> {
   const path = `user_submissions/${id}`;
   if (isFirebaseReady && db) {
     try {
-      const subRef = doc(db, 'user_submissions', id);
+      const subRef = doc(db, "user_submissions", id);
       const subSnap = await getDoc(subRef);
       if (subSnap.exists()) {
         const subData = subSnap.data() as UserSubmission;
-        
+
         // 1. Update status to 'approved'
-        await updateDoc(subRef, { status: 'approved' });
+        await updateDoc(subRef, { status: "approved" });
 
         // 2. Add as main curated resource
         await addResource({
           title: subData.title,
           description: subData.description,
           category: subData.category,
-          resourceType: subData.resourceType || 'other',
-          url: subData.url || '',
-          creator: subData.submittedBy || 'Kontributor PernikahApp',
-          thumbnailUrl: ''
+          resourceType: subData.resourceType || "other",
+          url: subData.url || "",
+          creator: subData.submittedBy || "Kontributor PernikahApp",
+          thumbnailUrl: "",
         });
       }
       return;
@@ -413,12 +458,12 @@ export async function approveUserSubmission(id: string): Promise<void> {
   }
 
   // Local Fallback
-  const rawSubs = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || '[]';
+  const rawSubs = localStorage.getItem(STORAGE_SUBMISSIONS_KEY) || "[]";
   const subList: UserSubmission[] = JSON.parse(rawSubs);
-  const index = subList.findIndex(item => item.id === id);
+  const index = subList.findIndex((item) => item.id === id);
   if (index !== -1) {
     // 1. Update status to 'approved'
-    subList[index].status = 'approved';
+    subList[index].status = "approved";
     localStorage.setItem(STORAGE_SUBMISSIONS_KEY, JSON.stringify(subList));
 
     // 2. Add as main curated resource
@@ -427,10 +472,10 @@ export async function approveUserSubmission(id: string): Promise<void> {
       title: subData.title,
       description: subData.description,
       category: subData.category,
-      resourceType: subData.resourceType || 'other',
-      url: subData.url || '',
-      creator: subData.submittedBy || 'Kontributor PernikahApp',
-      thumbnailUrl: ''
+      resourceType: subData.resourceType || "other",
+      url: subData.url || "",
+      creator: subData.submittedBy || "Kontributor PernikahApp",
+      thumbnailUrl: "",
     });
   }
 }
