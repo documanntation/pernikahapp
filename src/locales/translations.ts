@@ -319,15 +319,15 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     sandboxBadge: "Interactive Sandbox",
     interactiveHubTitle: "PernikahApp Interactive Hub",
     interactiveHubDesc:
-      "Dapatkan gambaran fitur premium masa depan kami melalui prototipe interaktif di bawah ini! Rancang kesiapan Anda sekarang juga secara interaktif.",
+      "Dapatkan gambaran fitur premium kami melalui uji coba interaktif di bawah ini! Rancang kesiapan Anda sekarang juga secara interaktif.",
     comingSoonProBadge: "Coming Soon Pro",
     exclusivePreOrderBadge: "Exclusive Pre-Order",
 
     readinessAnalyzerTitle: "Uji Kesiapan Nikah (Readiness Analyzer)",
     readinessAnalyzerDesc:
-      "Sebuah kerangka analisis mandiri mengukur aspek Emosional, Finansial, dan Komunikasi pra-nikah Anda. Geser slider di bawah untuk simulasi kalkulasi instan!",
+      "Test analisis mandiri untuk mengukur aspek Emosional, Finansial, dan Komunikasi pra-nikah Anda. Geser slider di bawah untuk simulasi kalkulasi instan!",
     readinessLabelMental: "1. Kesiapan Mental & Emosi (0-10):",
-    readinessLabelFinancial: "2. Kesiapan Finansial & Kerja (0-10):",
+    readinessLabelFinancial: "2. Kesiapan Finansial & Pekerjaan (0-10):",
     readinessLabelVision: "3. Kemandirian & Visi Hidup (0-10):",
     btnCalculateReadiness: "Kalkulasi Hasil Kesiapan",
     scoreAnalysisLabel: "Skor Analisis Kesiapan Anda:",
@@ -341,37 +341,35 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     valueMatcherDesc:
       "Kerangka kerja interaktif menyelaraskan kriteria mutlak calon pendamping berdasarkan keselarasan visi hidup. Tandai poin wajib di bawah yang menurut Anda harus didiskusikan!",
     matcherLabel1: "Kesesuaian Prinsip Keagamaan (Faith)",
-    matcherLabel2: "Value Finansial (Saling mandiri & sepakat porsi tabungan)",
+    matcherLabel2: "Value Finansial & Manajemen Keuangan",
     matcherLabel3: "Gaya Komunikasi (Kemampuan penyelesaian pertikaian)",
     matcherLabel4: "Rencana domisili masa depan setelah kualifikasi",
     matcherLabel5: "Visi pengasuhan didikan anak (Parenting model)",
     matcherCheckedCount: "Kesesuaian Tercentang: {count} Dari {total} Pokok",
-    matcherFooterDesc:
-      "Gunakan hasil centang sebagai pemantik obrolan dengan mediator ta'aruf. Mesin auto-match calon akan hadir!",
+    matcherFooterDesc: "Gunakan hasil centang sebagai pemantik obrolan.",
 
-    ebookTitle: "E-Book Premium: Gerbang Sakinah Terindah",
-    ebookDesc:
-      "Materi rangkuman eksklusif setebal 180 halaman menyangkut seluruh kurikulum PernikahApp, dikemas dengan narasi santai, komparasi riset, checklist katering, kalkulator hantaran, dan direktori lengkap administrasi KUA.",
-    ebookBullet1: "✓ 10 Checklist Praktis",
-    ebookBullet2: "✓ Format Form CV Ta'aruf",
-    ebookBullet3: "✓ Alur Birokrasi KUA",
+    ebookTitle: "E-Book Premium...",
+    ebookDesc: "Materi rangkuman eksklusif.",
+    ebookBullet1: "",
+    ebookBullet2: "",
+    ebookBullet3: "",
     ebookPromoTitle: "Dapatkan info rilis & Salinan Pertama!",
     ebookEmailPlaceholder: "Masukkan alamat email Anda",
-    btnPreorderEbook: "Amankan Draft E-Book",
-    preorderSuccessTitle: "Pre-Order Sukses terdaftar!",
+    btnPreorderEbook: "",
+    preorderSuccessTitle: "",
     preorderSuccessDesc: "Kami akan mengabari Anda segera setelah peluncuran.",
 
     // Req Rec Hub
     reqRecTitle: "Topic Request & Recommendation Hub",
     reqRecDesc:
-      "Bagikan rekomendasi sumber daya berkualitas yang Anda miliki, atau kirimkan topik/materi kajian baru yang sangat ingin Anda bahas bersama tim ahli!",
+      "Bagikan rekomendasi resource informasi yang Anda miliki atau usulkan topik yang Anda inginkan!",
     proposalFormTitle: "Formulir Usulan Baru",
     proposalTypeRequest: "Request Topik",
     proposalTypeRecommend: "Rekomendasikan",
     labelInputTitleRequest: "Topik yang Diinginkan *",
-    labelInputTitleRecommend: "Judul Sumber Daya / Akun / Buku *",
+    labelInputTitleRecommend: "Judul Resource / Akun / Buku *",
     placeholderInputTitleRequest:
-      "Contoh: Mengatasi konflik mertua di awal pernikahan",
+      "Contoh: Mengatasi konflik hubungan di awal pernikahan",
     placeholderInputTitleRecommend:
       "Contoh: Buku Fiqih Sunnah Wanita Terbitan Gema Insani",
     labelInputCategory: "Kategori Utama *",
@@ -383,7 +381,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     placeholderInputDescRequest:
       "Tuliskan rincian apa saja sub-topik yang ingin dicarikan referensinya...",
     placeholderInputDescRecommend:
-      "Beri ulasan singkat isi dari buku/akun ini serta fadhilah atau kelebihannya agar bermanfaat bagi orang lain...",
+      "Beri ulasan singkat isi dari buku/akun ini atau kelebihannya agar bermanfaat bagi orang lain...",
     labelInputSubmitter: "Nama Pengirim (Bisa inisial/anonim) *",
     placeholderInputSubmitter: "Nama Anda",
     btnSubmitProposal: "Kirim Usulan",
@@ -605,88 +603,82 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     quoteAuthor: "- HR. Ibnu Majah No. 1847",
 
     // Interactive Hub
-    sandboxBadge: "Interactive Sandbox",
-    interactiveHubTitle: "PernikahApp Interactive Hub",
+    // Interactive Hub
+    sandboxBadge: "Interactive Quiz",
+    interactiveHubTitle: "PernikahApp Interactive Quiz",
     interactiveHubDesc:
-      "Obtain an overview of our future premium features through the interactive prototype below! Analyze your readiness interactively.",
+      "Get a glimpse of our premium features through the interactive trial below! Plan your readiness interactively right now.",
     comingSoonProBadge: "Coming Soon Pro",
     exclusivePreOrderBadge: "Exclusive Pre-Order",
 
-    readinessAnalyzerTitle: "Pre-Marriage Readiness Analyzer",
+    readinessAnalyzerTitle: "Readiness Analyzer",
     readinessAnalyzerDesc:
-      "A self-evaluation matrix measuring your pre-marital Emotional, Financial, and Communication preparation. Drag the sliders below for instant simulation!",
+      "A self-assessment test to measure your emotional, financial, and pre-marital communication aspects. Adjust the sliders below for an instant simulated calculation!",
     readinessLabelMental: "1. Mental & Emotional Readiness (0-10):",
     readinessLabelFinancial: "2. Financial & Career Readiness (0-10):",
     readinessLabelVision: "3. Independence & Life Vision (0-10):",
     btnCalculateReadiness: "Calculate Readiness Score",
-    scoreAnalysisLabel: "Your Readiness Score Result:",
-    analysisExcellent:
-      "Superb! You possess a highly solid relational foundation.",
+    scoreAnalysisLabel: "Your Readiness Analysis Score:",
+    analysisExcellent: "Great! You have a highly solid foundation.",
     analysisGood:
-      "Splendid, but you should continue to refine communication transparency.",
+      "Good, but you still need to sharpen your communication and openness.",
     analysisNeedsStudy:
-      "Stay patient, there are many educational guides in this hub to support your growth!",
+      "Take your time, there are plenty of resources in this hub to help you prepare and learn!",
 
-    valueMatcherTitle: "Ideal Partner Criteria (Value Matcher)",
+    valueMatcherTitle: "Value Matcher",
     valueMatcherDesc:
-      "Select key criteria based on life-vision convergence to establish high-compatibility parameters. Tick the mandatory topics below you believe must be discussed!",
-    matcherLabel1: "Religious Alignment & Faith Principles",
-    matcherLabel2:
-      "Financial Compatibility (Savings split & monetary alignment)",
-    matcherLabel3: "Communication Styles & Conflict Resolution skills",
-    matcherLabel4:
-      "Post-marriage Residency plans (Independence vs parent's home)",
-    matcherLabel5: "Parenting vision and educational models",
-    matcherCheckedCount: "Ticked Alignment: {count} Out of {total} Points",
-    matcherFooterDesc:
-      "Use these checked points as conversation triggers with your mediator or calon partner. An automated pairing algorithm is heading your way!",
+      "An interactive framework to align your absolute criteria for a future partner based on life vision compatibility. Check the essential points below that you believe must be discussed!",
+    matcherLabel1: "Alignment of Religious Principles (Faith)",
+    matcherLabel2: "Financial Values & Money Management",
+    matcherLabel3: "Communication Style (Conflict resolution skills)",
+    matcherLabel4: "Future residency plans after marriage",
+    matcherLabel5: "Parenting vision and model",
+    matcherCheckedCount: "Matched Points: {count} out of {total} Key Items",
+    matcherFooterDesc: "Use these checked points as conversation starters.",
 
-    ebookTitle: "Premium E-Book: Gates to a Blessed Sakinah",
-    ebookDesc:
-      "An exclusive 180-page summarized handbook spanning the entire PernikahApp curricula, compiled with casual narratives, comparative research, catering checklists, dowry calculator, and administrative KUA guides.",
-    ebookBullet1: "✓ 10 Practical Checklists",
-    ebookBullet2: "✓ Ta'aruf CV Templates",
-    ebookBullet3: "✓ Official KUA Bureaucracy",
-    ebookPromoTitle: "Get Launch Alerts & Be First in Line!",
-    ebookEmailPlaceholder: "Enter your primary email address",
-    btnPreorderEbook: "Secure My Copy",
-    preorderSuccessTitle: "Pre-Order Successfully Registered!",
-    preorderSuccessDesc: "We will message you immediately on launch date.",
+    ebookTitle: "Premium E-Book...",
+    ebookDesc: "Exclusive summary materials.",
+    ebookBullet1: "",
+    ebookBullet2: "",
+    ebookBullet3: "",
+    ebookPromoTitle: "Get launch updates & the very first copy!",
+    ebookEmailPlaceholder: "Enter your email address",
+    btnPreorderEbook: "",
+    preorderSuccessTitle: "",
+    preorderSuccessDesc: "We will notify you as soon as we launch.",
 
+    // Req Rec Hub
     // Req Rec Hub
     reqRecTitle: "Topic Request & Recommendation Hub",
     reqRecDesc:
-      "Share high-quality pre-wedding resources you love, or submit new study topics you would like analyzed by Islamic matrimonial experts!",
-    proposalFormTitle: "Submit New Proposal",
-    proposalTypeRequest: "Request Topic",
-    proposalTypeRecommend: "Recommend Resource",
-    labelInputTitleRequest: "Desired Topic *",
-    labelInputTitleRecommend: "Name of Resource / Account / Book *",
+      "Share information resources you recommend or suggest topics you want to add!",
+    proposalFormTitle: "New Proposal Form",
+    proposalTypeRequest: "Request a Topic",
+    proposalTypeRecommend: "Recommend a Resource",
+    labelInputTitleRequest: "Requested Topic *",
+    labelInputTitleRecommend: "Resource / Account / Book Title *",
     placeholderInputTitleRequest:
-      "Example: Handling post-marriage boundary conflicts with in-laws",
+      "e.g., Resolving relationship conflicts in early marriage",
     placeholderInputTitleRecommend:
-      "Example: Fiqh Sunnah for Women published by Gema Insani",
-    labelInputCategory: "Primary Category *",
-    labelInputMediaType: "Media / Resource Classification *",
-    labelInputUrl: "Recommended Destination Link URL",
-    labelInputDescRequest: "Study Topic Description & Key Details *",
-    labelInputDescRecommend:
-      "Key Reasons & Short Review Why You Recommend It *",
+      "e.g., Fiqih Sunnah Wanita Book by Gema Insani Publishing",
+    labelInputCategory: "Main Category *",
+    labelInputMediaType: "Media / Resource Type *",
+    labelInputUrl: "Recommended URL / Link",
+    labelInputDescRequest: "Detailed Description of Requested Material *",
+    labelInputDescRecommend: "Reasons Why You Recommend It *",
     placeholderInputDescRequest:
-      "Detail what specific questions or sub-topics you need material on...",
+      "Write down the specific sub-topics you want references for...",
     placeholderInputDescRecommend:
-      "Explain key highlights of this book or account and how it helped you study...",
-    labelInputSubmitter: "Your Name (Initials or anonymous welcome) *",
-    placeholderInputSubmitter: "My Name",
+      "Give a brief review of this book/account or its benefits to help others...",
+    labelInputSubmitter: "Sender's Name (Can be initials/anonymous) *",
+    placeholderInputSubmitter: "Your name",
     btnSubmitProposal: "Submit Proposal",
-    proposalSuccessRequest: "Matrimonial Topic request submitted successfully!",
-    proposalSuccessRecommend:
-      "Thank you for sharing your curated wedding reference!",
-    proposalError:
-      "A cloud indexing error occurred while transferring your input.",
-    proposalEmptyWarning: "Please complete all mandatory fields!",
+    proposalSuccessRequest: "Topic request submitted successfully!",
+    proposalSuccessRecommend: "Thank you for your resource recommendation!",
+    proposalError: "A system error occurred while sending data.",
+    proposalEmptyWarning: "Please fill in all required fields!",
     toastResourceLiked:
-      "Glad you liked this recommendation! Your support vote has been synced to the database.",
+      "Liked this recommendation! Upvote recorded in the database.",
 
     // Req Rec Feed
     feedFilterAll: "All",

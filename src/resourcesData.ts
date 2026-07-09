@@ -465,7 +465,7 @@ export const INITIAL_RESOURCES: Resource[] = [
 
   // PARENTING & CHILDCARE
   {
-    id: "parent-1",
+    id: "parenting-1",
     title: "Mendidik Anak Dalam Islam ft Karina Hakman",
     description:
       "Sudut pandang soal scientific parenting yang ternyata sangat selaras dengan prinsip-prinsip Islam.",
