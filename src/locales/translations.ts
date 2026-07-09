@@ -446,22 +446,19 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     // Footer
     footerDesc:
       "Pusat katalog referensi terpercaya bagi calon pasangan pengantin untuk membangun pernikahan yang sakinah, mawaddah, wa rahmah.",
-    footerQuickLinks: "Navigasi Cepat",
+    footerQuickLinks: "Pernikahapp's Menu",
     footerQuickLibrary: "Perpustakaan Kurasi",
     footerQuickPhilosophy: "Misi & Filosofi Kami",
     footerQuickSubmit: "Kirim Rekomendasi / Request",
     footerQuickReady: "Kalkulator Kesiapan Nikah",
-    footerInfraStatus: "Status Infrastruktur",
-    footerFirestoreDb: "Database Cloud Firestore:",
-    footerSandboxDemo: "Demo Sandbox",
-    footerDeployHost: "Alamat Penempatan Sementara:",
+    footerInfraStatus: "",
+    footerFirestoreDb: "",
+    footerSandboxDemo: "",
+    footerDeployHost: "",
     footerOpsText:
-      "Operasi CRU (Create, Read, Update) aktif di semua mode penyimpanan.",
+      "",
     footerCopyright:
-      "© 2026 PernikahApp. Seluruh hak cipta dilindungi undang-undang.",
-    footerPartnerLinkSimkah: "Simkah Kemenag",
-    footerPartnerLinkEdukasi: "Edukasi Sunnah",
-    footerPartnerLinkBridestory: "Bridestory",
+      "© 2026 PernikahApp",
 
     cat_name_taaruf: "Ta'aruf Syar'i",
     cat_desc_taaruf:
@@ -736,21 +733,21 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     // Footer
     footerDesc:
       "A trusted catalog of resources for couples to build a marriage filled with peace, love, and tranquility.",
-    footerQuickLinks: "Quick Navigation",
+    footerQuickLinks: "Pernikahapp's Menu",
     footerQuickLibrary: "Curated Directory",
     footerQuickPhilosophy: "Matrimonial Vision",
     footerQuickSubmit: "Submit Proposal",
     footerQuickReady: "Readiness Analyzer",
-    footerInfraStatus: "Infrastructure Status",
-    footerFirestoreDb: "Cloud Firestore Database:",
-    footerSandboxDemo: "Demo Sandbox",
-    footerDeployHost: "Active Node Deploy Path:",
+    footerInfraStatus: "",
+    footerFirestoreDb: "",
+    footerSandboxDemo: "",
+    footerDeployHost: "",
     footerOpsText:
-      "Durable CRU (Create, Read, Update) processes authenticated across directories.",
-    footerCopyright: "© 2026 PernikahApp. All rights reserved globally.",
-    footerPartnerLinkSimkah: "Religious Ministry Simkah",
-    footerPartnerLinkEdukasi: "Sunnah Education",
-    footerPartnerLinkBridestory: "Bridestory Partner",
+      "",
+    footerCopyright: "© 2026 PernikahApp",
+    footerPartnerLinkSimkah: "",
+    footerPartnerLinkEdukasi: "",
+    footerPartnerLinkBridestory: "",
 
     cat_name_taaruf: "Ta'aruf Syar'i",
     cat_desc_taaruf:
