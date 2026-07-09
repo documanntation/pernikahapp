@@ -267,7 +267,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     heroTitle: "Ibadah Pernikahan",
     heroDescription:
       "Selamat datang di PernikahApp, pusat katalog referensi untuk melangkah dengan penuh kesiapan dari fase sebelum pernikahan hingga janji suci terucapkan, bahkan setelah menjalani kehidupan setelahnya.",
-    heroCtaPropose: "Usulkan Referensi Anda",
+    heroCtaPropose: "Usulkan Referensi",
     heroCtaExplore: "Mulai Jelajah",
 
     // Sidebar Filters
