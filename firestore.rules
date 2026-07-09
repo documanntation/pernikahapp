@@ -36,15 +36,9 @@ service cloud.firestore {
     }
 
     function isValidResource(data) {
-      return data.keys().hasAll(['title', 'description', 'category', 'resourceType', 'url'])
-        && data.title is string && data.title.size() <= 200
-        && data.description is string && data.description.size() <= 2000
-        && data.category is string && data.category.size() <= 100
-        && data.resourceType is string && data.resourceType.size() <= 50
-        && data.url is string && data.url.size() <= 1000
-        && (!data.keys().contains('likes') || data.likes is number)
-        && (!data.keys().contains('creator') || (data.creator is string && data.creator.size() <= 200))
-        && (!data.keys().contains('thumbnailUrl') || (data.thumbnailUrl is string && data.thumbnailUrl.size() <= 1500));
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.description is string && data.description.size() > 0 && data.description.size() <= 2000
+        && data.category is string && data.category.size() > 0 && data.category.size() <= 100;
     }
 
     // User Submissions (Requests & Recommendations)
@@ -61,15 +55,10 @@ service cloud.firestore {
     }
 
     function isValidSubmission(data) {
-      return data.keys().hasAll(['title', 'description', 'category', 'isRequest', 'submittedBy'])
-        && data.title is string && data.title.size() <= 200
-        && data.description is string && data.description.size() <= 2000
-        && data.category is string && data.category.size() <= 100
-        && data.isRequest is bool
-        && data.submittedBy is string && data.submittedBy.size() <= 200
-        && (!data.keys().contains('url') || (data.url is string && data.url.size() <= 1000))
-        && (!data.keys().contains('resourceType') || (data.resourceType is string && data.resourceType.size() <= 50))
-        && (!data.keys().contains('likes') || data.likes is number);
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.description is string && data.description.size() > 0 && data.description.size() <= 2000
+        && data.category is string && data.category.size() > 0 && data.category.size() <= 100
+        && data.submittedBy is string && data.submittedBy.size() > 0 && data.submittedBy.size() <= 200;
     }
   }
 }
