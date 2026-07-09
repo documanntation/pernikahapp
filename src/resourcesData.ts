@@ -182,20 +182,6 @@ export const INITIAL_RESOURCES: Resource[] = [
   // CHOOSING THE RIGHT PERSON
   {
     id: "choose-1",
-    title: "Sebelum Memutuskan Menikah: 10 Pertanyaan Krusial Calon Pasangan",
-    description:
-      "Pertanyaan wajib seputar ekspektasi karier, tempat tinggal setelah menikah, pembagian peran domestik, hingga hubungan dengan mertua.",
-    category: "choose-partner",
-    resourceType: "instagram",
-    url: "https://www.instagram.com/p/Co9_weddingrules",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop&q=80",
-    likes: 312,
-    creator: "@analisawidyaningrum",
-    createdAt: "2026-02-28T09:00:00Z",
-  },
-  {
-    id: "choose-2",
     title: "Malu Bertanya Official - Edukasi Pranikah & Jodoh",
     description:
       "Platform microblogging yang membahas cara bertanya taktis ke calon pasangan seputar visi, finansial, dan cara mendeteksi tanda bahaya (red flags).",
@@ -209,13 +195,13 @@ export const INITIAL_RESOURCES: Resource[] = [
     createdAt: "2026-07-09T09:15:00Z",
   },
   {
-    id: "choose-3",
+    id: "choose-2",
     title: "Karena Menikah Tak Sebercanda Itu",
     description:
       "Buku karya Ustadz Amar Ar-Risalah yang mengupas realitas pranikah, mendewasakan cara berpikir, serta meluruskan niat agar tidak terjebak dalam romantisme semu sebelum akad.",
     category: "choose-partner",
     resourceType: "book",
-    url: "https://www.gramedia.com/products/karena-menikah-tak-sebercanda-itu",
+    url: "https://www.goodreads.com/en/book/show/61462761-karena-menikah-tak-sebercanda-itu",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600&auto=format&fit=crop&q=80",
     likes: 452,
@@ -223,13 +209,13 @@ export const INITIAL_RESOURCES: Resource[] = [
     createdAt: "2026-07-09T10:00:00Z",
   },
   {
-    id: "choose-4",
+    id: "choose-3",
     title: "Yang Belum Kamu Pelajari tentang Menikah",
     description:
       "Buku panduan mendalam dari Ustadz Amar Ar-Risalah yang membahas kurikulum penting pranikah, seni menyelaraskan visi, dan ilmu-ilmu esensial yang sering luput dari perhatian calon pengantin.",
     category: "choose-partner",
     resourceType: "book",
-    url: "https://www.gramedia.com/products/yang-belum-kamu-pelajari-tentang-menikah",
+    url: "https://www.goodreads.com/book/show/215046339-yang-belum-kamu-pelajari-tentang-menikah",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80",
     likes: 389,
@@ -237,7 +223,7 @@ export const INITIAL_RESOURCES: Resource[] = [
     createdAt: "2026-07-09T10:15:00Z",
   },
   {
-    id: "choose-5",
+    id: "choose-4",
     title: "Nikah Institute - Kriteria & Kesiapan Menuju Akad",
     description:
       "Akun edukasi seputar standarisasi memilih pendamping hidup, mengelola ekspektasi rasional, serta kesiapan mental melepas masa lajang.",
@@ -249,20 +235,6 @@ export const INITIAL_RESOURCES: Resource[] = [
     likes: 611,
     creator: "@nikahinstitute",
     createdAt: "2026-07-09T11:20:00Z",
-  },
-  {
-    id: "choose-6",
-    title: "Mencari Belahan Jiwa: Seni Memilih Pasangan Hidup",
-    description:
-      "Buku best seller yang menyeimbangkan antara idealisme syariat dengan realitas psikologi sosial dalam memilih pasangan.",
-    category: "choose-partner",
-    resourceType: "book",
-    url: "https://www.gramedia.com/products/mencari-belahan-jiwa-salim",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80",
-    likes: 412,
-    creator: "Salim A. Fillah",
-    createdAt: "2026-01-18T10:00:00Z",
   },
 
   // PERSONALITY CHECK
@@ -326,20 +298,6 @@ export const INITIAL_RESOURCES: Resource[] = [
     likes: 690,
     creator: "@naseehaproject",
     createdAt: "2026-07-09T14:15:00Z",
-  },
-  {
-    id: "fund-4",
-    title: "The 7 Principles for Making Marriage Work",
-    description:
-      "Rekomendasi buku legendaris karya Dr. John Gottman yang wajib dibaca calon pengantin mengenai relasi emosi jangka panjang.",
-    category: "fundamentals",
-    resourceType: "book",
-    url: "https://www.amazon.com/Seven-Principles-Making-Marriage-Work/dp/0553447718",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600&auto=format&fit=crop&q=80",
-    likes: 189,
-    creator: "John Gottman, Ph.D.",
-    createdAt: "2026-01-20T11:00:00Z",
   },
 
   // FIQH PERNIKAHAN
