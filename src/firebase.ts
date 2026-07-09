@@ -162,21 +162,22 @@ export async function fetchResources(): Promise<Resource[]> {
     try {
       const q = query(collection(db, path), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
-      const items: Resource[] = [];
-      const itemIds = new Set<string>();
+      const existingItemsMap = new Map<string, Resource>();
       snapshot.forEach((docSnap) => {
         const item = { id: docSnap.id, ...docSnap.data() } as Resource;
-        items.push(item);
-        itemIds.add(item.id);
+        existingItemsMap.set(item.id, item);
       });
 
-      // Synchronize and seed any missing INITIAL_RESOURCES into Firestore dynamically
       let seededAny = false;
+      const finalItemsMap = new Map<string, Resource>();
+
       for (const res of INITIAL_RESOURCES) {
-        if (!itemIds.has(res.id)) {
+        const existing = existingItemsMap.get(res.id);
+
+        if (!existing) {
           console.log(`Seeding missing resource ${res.id} to Cloud DB...`);
           const docId = res.id;
-          await setDoc(doc(db, path, docId), {
+          const newDoc = {
             title: res.title,
             description: res.description,
             category: res.category,
@@ -186,29 +187,99 @@ export async function fetchResources(): Promise<Resource[]> {
             likes: res.likes || 0,
             creator: res.creator || "",
             createdAt: res.createdAt,
-          });
-          items.push(res);
+          };
+          await setDoc(doc(db, path, docId), newDoc);
+          finalItemsMap.set(res.id, { id: res.id, ...newDoc });
           seededAny = true;
+        } else {
+          // Check if any curation fields were modified in resourcesData.ts
+          const needsUpdate =
+            existing.title !== res.title ||
+            existing.description !== res.description ||
+            existing.url !== res.url ||
+            existing.category !== res.category ||
+            existing.resourceType !== res.resourceType ||
+            existing.creator !== res.creator ||
+            existing.thumbnailUrl !== res.thumbnailUrl;
+
+          if (needsUpdate) {
+            console.log(`Updating modified resource ${res.id} in Cloud DB...`);
+            const docId = res.id;
+            const updatedFields = {
+              title: res.title,
+              description: res.description,
+              category: res.category,
+              resourceType: res.resourceType,
+              url: res.url,
+              thumbnailUrl: res.thumbnailUrl || "",
+              creator: res.creator || "",
+              createdAt: res.createdAt,
+            };
+            await updateDoc(doc(db, path, docId), updatedFields);
+            finalItemsMap.set(res.id, {
+              ...existing,
+              ...updatedFields,
+            });
+            seededAny = true;
+          } else {
+            finalItemsMap.set(res.id, existing);
+          }
         }
       }
 
-      if (seededAny) {
-        // Re-sort items by createdAt desc so that the order is preserved nicely
-        items.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        );
-      }
+      // Add any custom/user-contributed resources that exist in Firestore but not in INITIAL_RESOURCES
+      existingItemsMap.forEach((item, id) => {
+        if (!finalItemsMap.has(id)) {
+          finalItemsMap.set(id, item);
+        }
+      });
 
-      return items;
+      const finalItems = Array.from(finalItemsMap.values());
+      finalItems.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+      return finalItems;
     } catch (error) {
       handleFirestoreError(error, OperationType.GET, path);
       return INITIAL_RESOURCES; // Safe UI fallback
     }
   } else {
-    // Local fallback
+    // Local fallback with complete synchronization support
     const raw = localStorage.getItem(STORAGE_RESOURCES_KEY);
-    return raw ? JSON.parse(raw) : INITIAL_RESOURCES;
+    const localList: Resource[] = raw ? JSON.parse(raw) : [];
+    const localMap = new Map<string, Resource>();
+    localList.forEach((item) => localMap.set(item.id, item));
+
+    const updatedList: Resource[] = [];
+    const processedIds = new Set<string>();
+
+    for (const res of INITIAL_RESOURCES) {
+      const existing = localMap.get(res.id);
+      if (existing) {
+        updatedList.push({
+          ...res,
+          likes: existing.likes, // Keep accumulated votes/likes
+        });
+      } else {
+        updatedList.push(res);
+      }
+      processedIds.add(res.id);
+    }
+
+    // Retain any offline/custom local resources not present in INITIAL_RESOURCES
+    for (const item of localList) {
+      if (!processedIds.has(item.id)) {
+        updatedList.push(item);
+      }
+    }
+
+    localStorage.setItem(STORAGE_RESOURCES_KEY, JSON.stringify(updatedList));
+    updatedList.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+    return updatedList;
   }
 }
 
