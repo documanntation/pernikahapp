@@ -275,8 +275,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     sidebarAll: "Melihat Semua",
     filterTypeLabel: "Tipe:",
     filterTypeAll: "Semua",
-    searchPlaceholder:
-      "Cari materi, buku, katering, atau nama akun pembicara...",
+    searchPlaceholder: "Cari materi, buku, kelas, atau nama akun...",
     activeFilterLabel: "Filter Aktif:",
     activeFilterAll: "Semua Persiapan",
     matsFound: "Ditemukan: {count} Materi",
