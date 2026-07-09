@@ -18,7 +18,6 @@ export interface TranslationBundle {
   navSoonBadge: string;
   adminPanelBtn: string;
   liveFirestore: string;
-  localSandbox: string;
   connected: string;
   notConnected: string;
 
@@ -259,7 +258,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     navSoonBadge: "Soon",
     adminPanelBtn: "Admin",
     liveFirestore: "Live Firestore",
-    localSandbox: "Local Sandbox",
+
     connected: "Tersambung",
     notConnected: "Demo Sandbox",
 
@@ -549,7 +548,6 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     navSoonBadge: "Soon",
     adminPanelBtn: "Admin",
     liveFirestore: "Live Firestore",
-    localSandbox: "Local Sandbox",
     connected: "Connected",
     notConnected: "Demo Sandbox",
 
