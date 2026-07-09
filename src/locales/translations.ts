@@ -446,7 +446,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     footerDesc:
       "Pusat katalog referensi terpercaya bagi calon pasangan pengantin untuk membangun pernikahan yang sakinah, mawaddah, wa rahmah.",
     footerQuickLinks: "Pernikahapp's Menu",
-    footerQuickLibrary: "",
+    footerQuickLibrary: "Resource Library",
     footerQuickPhilosophy: "Misi & Filosofi Kami",
     footerQuickSubmit: "Kirim Rekomendasi / Request",
     footerQuickReady: "Kalkulator Kesiapan Nikah",
