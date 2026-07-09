@@ -354,8 +354,7 @@ export const INITIAL_RESOURCES: Resource[] = [
     category: "kua",
     resourceType: "website",
     url: "https://simkah4.kemenag.go.id",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=600&auto=format&fit=crop&q=80",
+    thumbnailUrl: "",
     likes: 271,
     creator: "Kementerian Agama RI",
     createdAt: "2026-04-01T07:50:00Z",
@@ -399,11 +398,10 @@ export const INITIAL_RESOURCES: Resource[] = [
   {
     id: "wedding-1",
     title: "Daftar Catering Pernikahan Legendaris & Kredibel",
-    description:
-      "Kompilasi ulasan menu buffet, kebersihan gubukan makanan, kelancaran logistik, serta daftar harga paket dari vendor top Jakarta & Bandung.",
+    description: "Kompilasi opsi vendor catering.",
     category: "wedding-prep",
     resourceType: "website",
-    url: "https://www.bridestory.com/indonesia/catering",
+    url: "https://www.bridestory.com/id/all-countries/all-cities/catering",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1555244162-803834f70033?w=600&auto=format&fit=crop&q=80",
     likes: 154,

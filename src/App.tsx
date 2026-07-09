@@ -593,7 +593,7 @@ export default function App() {
                 <p className="text-xs text-zinc-400 italic leading-relaxed font-sans">
                   "
                   {language === "IN"
-                    ? "Membangun keluarga sakinah, mawaddah, wa rahmah diawali dengan kematangan ilmu, kejernihan niat, dan rida Illahi. Semoga langkah mulia Anda dipermudah dan senantiasa diberkahi."
+                    ? "Membangun keluarga sakinah, mawaddah, wa rahmah diawali dengan kematangan ilmu, kejernihan niat, dan ridho Allah. Semoga langkah mulia Anda dipermudah dan senantiasa diberkahi."
                     : "Building a sakinah, mawaddah, and rahmah family begins with mature knowledge, clarity of intention, and divine grace. May your noble steps be facilitated and always blessed."}
                   "
                 </p>

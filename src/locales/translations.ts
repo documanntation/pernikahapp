@@ -447,7 +447,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     footerDesc:
       "Pusat katalog referensi terpercaya bagi calon pasangan pengantin untuk membangun pernikahan yang sakinah, mawaddah, wa rahmah.",
     footerQuickLinks: "Pernikahapp's Menu",
-    footerQuickLibrary: "Perpustakaan Kurasi",
+    footerQuickLibrary: "",
     footerQuickPhilosophy: "Misi & Filosofi Kami",
     footerQuickSubmit: "Kirim Rekomendasi / Request",
     footerQuickReady: "Kalkulator Kesiapan Nikah",
@@ -455,10 +455,8 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     footerFirestoreDb: "",
     footerSandboxDemo: "",
     footerDeployHost: "",
-    footerOpsText:
-      "",
-    footerCopyright:
-      "© 2026 PernikahApp",
+    footerOpsText: "",
+    footerCopyright: "© 2026 PernikahApp",
 
     cat_name_taaruf: "Ta'aruf Syar'i",
     cat_desc_taaruf:
@@ -742,8 +740,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     footerFirestoreDb: "",
     footerSandboxDemo: "",
     footerDeployHost: "",
-    footerOpsText:
-      "",
+    footerOpsText: "",
     footerCopyright: "© 2026 PernikahApp",
     footerPartnerLinkSimkah: "",
     footerPartnerLinkEdukasi: "",
