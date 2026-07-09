@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Playball&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-script: "Playball", cursive;
+
+  --color-brand-red: #7d0000;
+  --color-brand-blue: #4682b4;
+  --color-brand-beige-dark: #d8d2c6;
+  --color-brand-beige-light: #d8d4cb;
+  --color-brand-burgundy: #540000;
+  --color-brand-slate: #1e293b;
+  --color-brand-gold: #c5a880;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fcfbfa;
+  color: #2b2927;
+}
+
+/* Custom gorgeous serif headers */
+.serif-heading {
+  font-family: var(--font-serif);
+}
+
+/* Custom script letters */
+.script-accent {
+  font-family: var(--font-script);
+}
+
+/* Custom transitions and scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f0ec;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d2c6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7d0000;
+}

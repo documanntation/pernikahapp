@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "Resource": {
+      "title": "Resource",
+      "description": "A curated wedding/marriage planning resource or recommendation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "resourceType": { "type": "string", "enum": ["youtube", "instagram", "book", "course", "website", "other"] },
+        "url": { "type": "string", "format": "uri" },
+        "thumbnailUrl": { "type": "string" },
+        "likes": { "type": "number" },
+        "creator": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "category", "resourceType", "url"]
+    },
+    "UserSubmission": {
+      "title": "UserSubmission",
+      "description": "A topic request or resource recommendation submitted by a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "resourceType": { "type": "string", "enum": ["youtube", "instagram", "book", "course", "website", "other"] },
+        "url": { "type": "string" },
+        "isRequest": { "type": "boolean" },
+        "submittedBy": { "type": "string" },
+        "likes": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "category", "isRequest", "submittedBy"]
+    }
+  },
+  "firestore": {
+    "resources": {
+      "schema": "Resource",
+      "description": "Curated resource items loaded in the catalog"
+    },
+    "user_submissions": {
+      "schema": "UserSubmission",
+      "description": "User requests and recommended resources"
+    }
+  }
+}

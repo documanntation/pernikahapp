@@ -1,0 +1,6 @@
+{
+  "name": "PernikahApp",
+  "description": "Interactive resources hub and cooperative planning board for wedding arrangements and sustainable marriage preparations",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
