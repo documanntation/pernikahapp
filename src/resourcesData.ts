@@ -325,7 +325,7 @@ export const INITIAL_RESOURCES: Resource[] = [
     resourceType: "instagram",
     url: "https://www.instagram.com/spn.nurulashri/",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
     likes: 412,
     creator: "@spn.nurulashri",
     createdAt: "2026-07-09T15:30:00Z",

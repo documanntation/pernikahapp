@@ -556,8 +556,7 @@ export const translations: Record<"IN" | "EN", TranslationBundle> = {
     sidebarAll: "View All",
     filterTypeLabel: "Type:",
     filterTypeAll: "All",
-    searchPlaceholder:
-      "Search materials, books, catering, or speaker accounts...",
+    searchPlaceholder: "Search materials, books, courses, or accounts...",
     activeFilterLabel: "Active Filter:",
     activeFilterAll: "All Stages",
     matsFound: "Found: {count} Materials",

@@ -146,6 +146,11 @@ export async function logoutUser(): Promise<void> {
 const STORAGE_RESOURCES_KEY = "pernikah_resources_local";
 const STORAGE_SUBMISSIONS_KEY = "pernikah_submissions_local";
 
+// Helper to identify if an ID is in a static preset format (e.g. "taaruf-1", "financial-legal-3")
+function isPresetIdFormat(id: string): boolean {
+  return /^[a-z0-9-]+-\d+$/i.test(id);
+}
+
 // Initialize local storage seeds if empty
 if (!localStorage.getItem(STORAGE_RESOURCES_KEY)) {
   localStorage.setItem(
@@ -251,11 +256,27 @@ export async function fetchResources(): Promise<Resource[]> {
       }
 
       // Add any custom/user-contributed resources that exist in Firestore but not in INITIAL_RESOURCES
-      existingItemsMap.forEach((item, id) => {
+      const initialPresetIds = new Set(INITIAL_RESOURCES.map((r) => r.id));
+      for (const [id, item] of existingItemsMap.entries()) {
         if (!finalItemsMap.has(id)) {
-          finalItemsMap.set(id, item);
+          // If this ID matches the preset ID format but is NOT in the current codebase's list,
+          // it means this preset was removed/deleted from the code. Let's prune it from Firestore.
+          if (isPresetIdFormat(id) && !initialPresetIds.has(id)) {
+            console.log(`Pruning stale preset ${id} from Cloud DB...`);
+            try {
+              await deleteDoc(doc(db, path, id));
+            } catch (err) {
+              console.warn(`Failed to prune stale preset doc ${id}:`, err);
+            }
+          } else {
+            // It is a custom user submission or a valid non-stale resource,
+            // unless it was explicitly deleted from the admin panel
+            if (!deletedPresetIds.has(id)) {
+              finalItemsMap.set(id, item);
+            }
+          }
         }
-      });
+      }
 
       const finalItems = Array.from(finalItemsMap.values());
       finalItems.sort(
@@ -624,13 +645,19 @@ export function subscribeResources(
 ): () => void {
   const path = "resources";
   if (isFirebaseReady && db) {
+    const initialPresetIds = new Set(INITIAL_RESOURCES.map((r) => r.id));
     const q = query(collection(db, path), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
         const items: Resource[] = [];
         snapshot.forEach((docSnap) => {
-          items.push({ id: docSnap.id, ...docSnap.data() } as Resource);
+          const id = docSnap.id;
+          // Ignore stale presets that have been removed/deleted from the codebase
+          if (isPresetIdFormat(id) && !initialPresetIds.has(id)) {
+            return;
+          }
+          items.push({ id, ...docSnap.data() } as Resource);
         });
         items.sort(
           (a, b) =>
