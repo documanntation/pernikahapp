@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CATEGORIES } from "./resourcesData";
 import { Resource } from "./types";
-import { fetchResources, likeResource, isFirebaseReady } from "./firebase";
+import {
+  fetchResources,
+  likeResource,
+  isFirebaseReady,
+  subscribeResources,
+} from "./firebase";
 import Header from "./components/Header";
 import AboutUs from "./components/AboutUs";
 import ReqRecForm from "./components/ReqRecForm";
@@ -30,7 +35,7 @@ const PHASES = [
 ];
 
 export default function App() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [currentTab, setCurrentTab] = useState("home");
   const [showAdmin, setShowAdmin] = useState(false);
   const [resources, setResources] = useState<Resource[]>([]);
@@ -44,21 +49,54 @@ export default function App() {
   // Floating notifications
   const [alert, setAlert] = useState<string | null>(null);
 
-  // Load resources
+  // Load resources (supports offline manual updates and initial loading)
   const loadResourcesList = async () => {
     setIsLoading(true);
     try {
       const data = await fetchResources();
       setResources(data);
     } catch (err) {
-      console.error(err);
+      console.error("Error loading resources list:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Setup real-time sync for instant multi-user update and deletion tracking
   useEffect(() => {
-    loadResourcesList();
+    let isMounted = true;
+
+    const syncAndSubscribe = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchResources();
+        if (isMounted) {
+          setResources(data);
+          setIsLoading(false);
+        }
+      } catch (err) {
+        console.error("Error doing initial resources sync:", err);
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+
+      const unsubscribe = subscribeResources((updatedItems) => {
+        if (isMounted) {
+          setResources(updatedItems);
+          setIsLoading(false);
+        }
+      });
+
+      return unsubscribe;
+    };
+
+    let unsubPromise = syncAndSubscribe();
+
+    return () => {
+      isMounted = false;
+      unsubPromise.then((unsub) => unsub && unsub());
+    };
   }, []);
 
   const triggerAlert = (msg: string) => {
@@ -544,6 +582,26 @@ export default function App() {
                   </button>
                 </li>
               </ul>
+            </div>
+
+            {/* Column 3: Inspiring Quote */}
+            <div>
+              <h4 className="serif-heading text-sm font-bold text-white mb-4 uppercase tracking-wider">
+                {language === "IN" ? "Keluarga Sakinah" : "Sakinah Family"}
+              </h4>
+              <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl">
+                <p className="text-xs text-zinc-400 italic leading-relaxed font-sans">
+                  "
+                  {language === "IN"
+                    ? "Membangun keluarga sakinah, mawaddah, wa rahmah diawali dengan kematangan ilmu, kejernihan niat, dan rida Illahi. Semoga langkah mulia Anda dipermudah dan senantiasa diberkahi."
+                    : "Building a sakinah, mawaddah, and rahmah family begins with mature knowledge, clarity of intention, and divine grace. May your noble steps be facilitated and always blessed."}
+                  "
+                </p>
+                <div className="mt-3 flex items-center justify-between text-[10px] text-zinc-500 font-semibold uppercase tracking-wider">
+                  <span>PernikahApp</span>
+                  <span>❤</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

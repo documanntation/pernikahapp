@@ -21,6 +21,8 @@ import {
   limit,
   increment,
   setDoc,
+  onSnapshot,
+  arrayUnion,
 } from "firebase/firestore";
 import { Resource, UserSubmission } from "./types";
 import { INITIAL_RESOURCES } from "./resourcesData";
@@ -160,6 +162,22 @@ export async function fetchResources(): Promise<Resource[]> {
   const path = "resources";
   if (isFirebaseReady && db) {
     try {
+      // Fetch deleted preset IDs to prevent re-seeding explicitly deleted presets
+      let deletedPresetIds = new Set<string>();
+      try {
+        const metadataSnap = await getDoc(
+          doc(db, "system_metadata", "presets"),
+        );
+        if (metadataSnap.exists()) {
+          const mData = metadataSnap.data();
+          if (Array.isArray(mData.deletedIds)) {
+            deletedPresetIds = new Set(mData.deletedIds);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load deleted presets metadata:", err);
+      }
+
       const q = query(collection(db, path), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
       const existingItemsMap = new Map<string, Resource>();
@@ -172,6 +190,11 @@ export async function fetchResources(): Promise<Resource[]> {
       const finalItemsMap = new Map<string, Resource>();
 
       for (const res of INITIAL_RESOURCES) {
+        // Skip syncing or returning any static preset ID that has been explicitly deleted
+        if (deletedPresetIds.has(res.id)) {
+          continue;
+        }
+
         const existing = existingItemsMap.get(res.id);
 
         if (!existing) {
@@ -246,6 +269,16 @@ export async function fetchResources(): Promise<Resource[]> {
     }
   } else {
     // Local fallback with complete synchronization support
+    let deletedPresetIds = new Set<string>();
+    const rawDeleted = localStorage.getItem("deleted_presets_ids");
+    if (rawDeleted) {
+      try {
+        deletedPresetIds = new Set(JSON.parse(rawDeleted));
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+
     const raw = localStorage.getItem(STORAGE_RESOURCES_KEY);
     const localList: Resource[] = raw ? JSON.parse(raw) : [];
     const localMap = new Map<string, Resource>();
@@ -255,6 +288,11 @@ export async function fetchResources(): Promise<Resource[]> {
     const processedIds = new Set<string>();
 
     for (const res of INITIAL_RESOURCES) {
+      // Skip deleted presets in local fallback
+      if (deletedPresetIds.has(res.id)) {
+        continue;
+      }
+
       const existing = localMap.get(res.id);
       if (existing) {
         updatedList.push({
@@ -269,7 +307,7 @@ export async function fetchResources(): Promise<Resource[]> {
 
     // Retain any offline/custom local resources not present in INITIAL_RESOURCES
     for (const item of localList) {
-      if (!processedIds.has(item.id)) {
+      if (!processedIds.has(item.id) && !deletedPresetIds.has(item.id)) {
         updatedList.push(item);
       }
     }
@@ -461,13 +499,41 @@ export async function likeUserSubmission(id: string): Promise<void> {
 // 8. DELETE RESOURCE (Admin only)
 export async function deleteResource(id: string): Promise<void> {
   const path = `resources/${id}`;
+  const isPreset = INITIAL_RESOURCES.some((res) => res.id === id);
+
   if (isFirebaseReady && db) {
     try {
+      if (isPreset) {
+        // Track that this static preset has been deleted so the sync engine doesn't re-seed it
+        await setDoc(
+          doc(db, "system_metadata", "presets"),
+          {
+            deletedIds: arrayUnion(id),
+          },
+          { merge: true },
+        );
+      }
       const docRef = doc(db, "resources", id);
       await deleteDoc(docRef);
       return;
     } catch (error) {
       handleFirestoreError(error, OperationType.DELETE, path);
+    }
+  }
+
+  if (isPreset) {
+    const rawDeleted = localStorage.getItem("deleted_presets_ids") || "[]";
+    try {
+      const deletedList = JSON.parse(rawDeleted);
+      if (!deletedList.includes(id)) {
+        deletedList.push(id);
+        localStorage.setItem(
+          "deleted_presets_ids",
+          JSON.stringify(deletedList),
+        );
+      }
+    } catch (err) {
+      console.warn(err);
     }
   }
 
@@ -548,5 +614,104 @@ export async function approveUserSubmission(id: string): Promise<void> {
       creator: subData.submittedBy || "Kontributor PernikahApp",
       thumbnailUrl: "",
     });
+  }
+}
+
+// 11. SUBSCRIBE TO RESOURCES (Real-time updates)
+export function subscribeResources(
+  onUpdate: (items: Resource[]) => void,
+  onError?: (err: Error) => void,
+): () => void {
+  const path = "resources";
+  if (isFirebaseReady && db) {
+    const q = query(collection(db, path), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items: Resource[] = [];
+        snapshot.forEach((docSnap) => {
+          items.push({ id: docSnap.id, ...docSnap.data() } as Resource);
+        });
+        items.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        onUpdate(items);
+      },
+      (error) => {
+        console.error("Firestore onSnapshot error for resources:", error);
+        if (onError) onError(error);
+      },
+    );
+    return unsubscribe;
+  } else {
+    // Local fallback
+    const raw = localStorage.getItem(STORAGE_RESOURCES_KEY);
+    const initialList = raw ? JSON.parse(raw) : INITIAL_RESOURCES;
+    onUpdate(initialList);
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_RESOURCES_KEY) {
+        const updated = e.newValue ? JSON.parse(e.newValue) : [];
+        updated.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        onUpdate(updated);
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }
+}
+
+// 12. SUBSCRIBE TO USER SUBMISSIONS (Real-time updates)
+export function subscribeUserSubmissions(
+  onUpdate: (items: UserSubmission[]) => void,
+  onError?: (err: Error) => void,
+): () => void {
+  const path = "user_submissions";
+  if (isFirebaseReady && db) {
+    const q = query(collection(db, path), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const items: UserSubmission[] = [];
+        snapshot.forEach((docSnap) => {
+          items.push({ id: docSnap.id, ...docSnap.data() } as UserSubmission);
+        });
+        items.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        onUpdate(items);
+      },
+      (error) => {
+        console.error("Firestore onSnapshot error for submissions:", error);
+        if (onError) onError(error);
+      },
+    );
+    return unsubscribe;
+  } else {
+    const raw = localStorage.getItem(STORAGE_SUBMISSIONS_KEY);
+    const initialList = raw ? JSON.parse(raw) : [];
+    onUpdate(initialList);
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_SUBMISSIONS_KEY) {
+        const updated = e.newValue ? JSON.parse(e.newValue) : [];
+        updated.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
+        onUpdate(updated);
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }
 }

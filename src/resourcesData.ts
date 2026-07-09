@@ -371,7 +371,7 @@ export const INITIAL_RESOURCES: Resource[] = [
     resourceType: "youtube",
     url: "https://www.youtube.com/watch?v=k0JtHUnNvoM",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
     likes: 192,
     creator: "Ustadz Ammi Nur Baits",
     createdAt: "2026-05-10T09:15:00Z",
@@ -473,7 +473,7 @@ export const INITIAL_RESOURCES: Resource[] = [
     resourceType: "book",
     url: "www.youtube.com/watch?v=9W7Y1Mj8rFI",
     thumbnailUrl:
-      "https://images.unsplash.com/photo-1471286174241-e72c842185c7?w=600&auto=format&fit=crop&q=80",
+      "https://unsplash.com/photos/person-holding-blue-and-red-paper-TJxotQTUr8o?w=600&auto=format&fit=crop&q=80",
     likes: 95,
     creator: "Boss Mama Society",
     createdAt: "2026-04-12T05:00:00Z",
