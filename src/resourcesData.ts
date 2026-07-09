@@ -466,16 +466,16 @@ export const INITIAL_RESOURCES: Resource[] = [
   // PARENTING & CHILDCARE
   {
     id: "parent-1",
-    title: "Kurikulum Rumah Main Anak: Panduan Belajar Asyik di Rumah",
+    title: "Mendidik Anak Dalam Islam ft Karina Hakman",
     description:
-      "Buku panduan aktivitas stimulasi motorik dan sensorik anak sejak usia dini, wajib untuk pasangan sebelum punya buah hati.",
+      "Sudut pandang soal scientific parenting yang ternyata sangat selaras dengan prinsip-prinsip Islam.",
     category: "parenting",
     resourceType: "book",
-    url: "https://www.gramedia.com/products/kurikulum-rumah-main-anak",
+    url: "www.youtube.com/watch?v=9W7Y1Mj8rFI",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1471286174241-e72c842185c7?w=600&auto=format&fit=crop&q=80",
     likes: 95,
-    creator: "Julia Sarah Rangkuti",
+    creator: "Boss Mama Society",
     createdAt: "2026-04-12T05:00:00Z",
   },
 
