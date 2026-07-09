@@ -127,34 +127,19 @@ export const INITIAL_RESOURCES: Resource[] = [
   // TA'ARUF SYAR'I
   {
     id: "taaruf-1",
-    title: "Panduan Praktis Ta'aruf Syar'i Tanpa Pacaran",
-    description:
-      "E-book langkah demi langkah menyusun CV ta'aruf, mengajukan proposal, pendampingan atau mediator hukum, hingga nadhor.",
+    title: "Tata Cara Taaruf",
+    description: "Bagaimana proses taaruf syar'i?",
     category: "taaruf",
-    resourceType: "website",
-    url: "https://taarufindonesia.com/panduan-taaruf",
+    resourceType: "youtube",
+    url: "https://www.youtube.com/watch?v=pYJPoBrlAA4&",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=600&auto=format&fit=crop&q=80",
     likes: 42,
-    creator: "Rumah Ta'aruf Indonesia",
+    creator: "Mawaddah Indonesia",
     createdAt: "2026-01-15T08:00:00Z",
   },
   {
     id: "taaruf-2",
-    title: "Kupas Tuntas Alur Ta'aruf & Khitbah Yang Benar",
-    description:
-      "Kajian video esensial menjelaskan perbedaan ta'aruf, pacaran, dan khitbah (lamaran) serta bagaimana adab berkunjung ke rumah calon.",
-    category: "taaruf",
-    resourceType: "youtube",
-    url: "https://www.youtube.com/watch?v=q6Ew58K-6bA",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&auto=format&fit=crop&q=80",
-    likes: 128,
-    creator: "Ustadz Adi Hidayat Official",
-    createdAt: "2026-02-10T14:30:00Z",
-  },
-  {
-    id: "taaruf-3",
     title: "Biro Jodoh Rumaysho Official Instagram",
     description:
       "Akun edukasi pranikah berbasis syariat, adab-adab khitbah, serta kurasi ceramah fiqih seputar proses menjemput jodoh tanpa melanggar koridor agama.",
@@ -168,38 +153,22 @@ export const INITIAL_RESOURCES: Resource[] = [
     createdAt: "2026-07-09T08:00:00Z",
   },
   {
-    id: "taaruf-4",
-    title: "Fiqih Khitbah & Nadhor: Adab Meminang Sesuai Sunnah",
-    description:
-      "Buku rujukan utama membedah batasan interaksi, apa saja yang boleh dilihat saat nadhor, serta batasan hukum khitbah.",
-    category: "taaruf",
-    resourceType: "book",
-    url: "https://www.gramedia.com/products/fiqih-khitbah-nadhor",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
-    likes: 198,
-    creator: "Syaikh Musthafa Al-Adawi",
-    createdAt: "2026-01-20T09:00:00Z",
-  },
-  {
-    id: "taaruf-5",
-    title: "Kajian Lengkap Syarat & Ketentuan Ta'aruf Syar'i",
-    description:
-      "Seri edukasi video interaktif membahas peran penting perantara (mediator) dan cara menghindari jebakan pacaran terselubung.",
+    id: "taaruf-3",
+    title: "Fiqh Ketentuan Ta'aruf Syar'i",
+    description: "Edukasi video membahas ta'aruf yang sesuai.",
     category: "taaruf",
     resourceType: "youtube",
-    url: "https://www.youtube.com/watch?v=KajianTaarufYufid",
+    url: "https://www.youtube.com/watch?v=4qH8uNmuLqU",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80",
     likes: 310,
-    creator: "Yufid.TV - Pengajian Ceramah Islam",
+    creator: "Ustadz Ammi Nur Baits",
     createdAt: "2026-02-12T13:00:00Z",
   },
   {
-    id: "taaruf-6",
-    title: "Hira CHDR - Mindset & Trauma Relationship",
-    description:
-      "Edukasi mendalam seputar regulasi emosi pasutri, mengenali attachment style, menyembuhkan luka masa lalu (inner child), dan menjaga kesehatan mental hubungan.",
+    id: "taaruf-4",
+    title: "Hira CHDR",
+    description: "Edukasi kisah taaruf dan membangun pernikahan.",
     category: "taaruf",
     resourceType: "instagram",
     url: "https://www.instagram.com/hirachdr",
@@ -313,16 +282,15 @@ export const INITIAL_RESOURCES: Resource[] = [
   },
   {
     id: "pers-2",
-    title: "The Enneagram in Love and Work",
-    description:
-      "Buku legendaris mengupas bagaimana 9 tipe kepribadian Enneagram berinteraksi, berkonflik, dan saling melengkapi dalam hubungan pernikahan.",
+    title: "Screening Kesiapan Menikah",
+    description: "Apakah Kamu Sudah Siap Menikah?",
     category: "personality",
-    resourceType: "book",
-    url: "https://www.amazon.com/Enneagram-Love-Work-Relationships-Intimate/dp/0062507214",
+    resourceType: "website",
+    url: "https://form.qalboo.app/siapnikah",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&auto=format&fit=crop&q=80",
     likes: 215,
-    creator: "Helen Palmer",
+    creator: "Qalboo",
     createdAt: "2026-01-10T11:00:00Z",
   },
 
@@ -331,20 +299,6 @@ export const INITIAL_RESOURCES: Resource[] = [
   // ==========================================
 
   // MARRIAGE FUNDAMENTALS
-  {
-    id: "fund-1",
-    title: "Satu Persen: Kesiapan Finansial Pernikahan",
-    description:
-      "Video interaktif membahas pentingnya pembagian pos keuangan, dana darurat rumah tangga, serta asuransi keluarga muda.",
-    category: "fundamentals",
-    resourceType: "youtube",
-    url: "https://www.youtube.com/watch?v=F0vD60kId88",
-    thumbnailUrl:
-      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
-    likes: 245,
-    creator: "Satu Persen - Indonesian Life School",
-    createdAt: "2026-03-05T10:15:00Z",
-  },
   {
     id: "fund-2",
     title: "Pre-Marriage Talk Official Instagram",
@@ -391,23 +345,24 @@ export const INITIAL_RESOURCES: Resource[] = [
   // FIQH PERNIKAHAN
   {
     id: "fiqh-1",
-    title: "Fiqh Sunnah Wanita & Pernikahan - Fiqh Nikah Islam",
+    title:
+      "BUKU MAHKOTA PENGANTIN - BINGKISAN MEWAH UNTUK SUAMI ISTRI (PUSTAKA AT-TAZKIA)",
     description:
-      "Penjelasan lengkap syarat sah nikah, rukun akad, wali nasab, dan mahar menurut empat madzhab ulama fikih.",
+      "Membahas ilmu pernikahan secara komprehensif, dari memilih pasangan hingga adab berumah tangga.",
     category: "fiqh",
     resourceType: "book",
-    url: "https://rumaysho.com/category/fiqih-dan-muamalah/fiqih-nikah",
+    url: "https://yufidstore.com/products/buku-mahkota-pengantin-cetakan-34-pustaka-at-tazkia?srsltid=AfmBOorROjlmPEHcMX4noIqlNze3F3TGaT3T1pLgREnGc83kULxOHful",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
     likes: 320,
-    creator: "Ustadz Muhammad Abduh Tuasikal",
+    creator: "Majdi bin Manshur bin Sayyid asy-Syuri",
     createdAt: "2026-01-05T04:20:00Z",
   },
   {
     id: "fiqh-2",
     title: "Sekolah Pranikah Nurul Ashri (SPN)",
     description:
-      "Akun resmi berbasis masjid komunitas yang rutin menyelenggarakan kajian fikih nikah terstruktur, adab rumah tangga, dan pemantapan pranikah syar'i.",
+      "Rutin menyelenggarakan kajian fikih nikah terstruktur, adab rumah tangga, dan pemantapan pranikah syar'i.",
     category: "fiqh",
     resourceType: "instagram",
     url: "https://www.instagram.com/spn.nurulashri/",
@@ -419,16 +374,16 @@ export const INITIAL_RESOURCES: Resource[] = [
   },
   {
     id: "fiqh-3",
-    title: "Fikih Pernikahan Berdasarkan Empat Madzhab",
+    title: "BUKU PANDUAN LENGKAP NIKAH DARI A SAMPAI Z (PUSTAKA IBNU KATSIR)",
     description:
-      "Buku rujukan otoritatif komprehensif mengupas hukum sah akad, perwalian darurat, saksi, hingga variasi mahar kontemporer.",
+      "Buku panduan membahas lengkap: memilih pasangan, khitbah, syarat nikah, walimah islami, hak dan kewajiban suami–istri, adab berumah tangga, hingga teladan orang-orang shalih.",
     category: "fiqh",
     resourceType: "book",
-    url: "https://www.gramedia.com/products/fikih-pernikahan-4-madzhab",
+    url: "https://yufidstore.com/products/buku-panduan-lengkap-nikah-dari-a-sampai-z-ibnu-katsir?srsltid=AfmBOooPc3FIix69Etm_5_Td0mGrgXBUb5BDmTlEXy24VS1Vk0-tUKLi",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&auto=format&fit=crop&q=80",
     likes: 245,
-    creator: "Syaikh Abdul Rahman Al-Jaziri",
+    creator: "Abu Hafsh Usamah bin Kamal bin Abdir Razzaq",
     createdAt: "2026-01-15T09:00:00Z",
   },
 
@@ -451,17 +406,31 @@ export const INITIAL_RESOURCES: Resource[] = [
   // FINANCIAL & LEGAL
   {
     id: "financial-legal-1",
-    title: "Hukumonline: Panduan Pemisahan Harta & Perjanjian Pranikah",
+    title: "Manajemen Keuangan Rumah Tangga",
     description:
-      "Artikel kredibel kupas tuntas landasan hukum perlindungan aset bersama, pemisahan utang piutang, dan cara pembuatan Prenuptial Agreement di Notaris.",
+      "Pembahasan mengenai cara manajemen keuangan rumah tangga menurut Islam.",
     category: "financial-legal",
-    resourceType: "website",
-    url: "https://www.hukumonline.com/klinik/a/perjanjian-kawin-pisahnya-harta-lt5bcf56bf9310d",
+    resourceType: "youtube",
+    url: "https://www.youtube.com/watch?v=k0JtHUnNvoM",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1450133064473-71024230f91b?w=600&auto=format&fit=crop&q=80",
     likes: 192,
-    creator: "Hukumonline Indonesia",
+    creator: "Ustadz Ammi Nur Baits",
     createdAt: "2026-05-10T09:15:00Z",
+  },
+  {
+    id: "financial-legal-2",
+    title: "Cara Mengatur Keuangan Keluarga Tanpa Drama",
+    description:
+      "Pembahasan mengenai cara mengatur keuangan dalam keluarga—dari pembagian peran suami-istri, tips budgeting, cara cerdas mengelola pengeluaran supaya tetap bisa nabung tanpa drama.",
+    category: "financial-legal",
+    resourceType: "youtube",
+    url: "https://www.youtube.com/watch?v=hbYVtzt_uqo",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80",
+    likes: 245,
+    creator: "Boss Mama Society",
+    createdAt: "2026-03-05T10:15:00Z",
   },
 
   // ==========================================
@@ -523,16 +492,16 @@ export const INITIAL_RESOURCES: Resource[] = [
   // WEDDING & COUPLE PSYCHOLOGY
   {
     id: "psych-1",
-    title: "Kelas Online Pra-Nikah: Menyelami Psikologi Pernikahan",
+    title: "Konseling Couple Pre-Marriage / Marriage",
     description:
-      "Kursus interaktif berfokus pada resolusi konflik rumah tangga secara empatik, kesehatan mental istri pasca-melahirkan, dan manajemen stres.",
+      "Konseling dengan Psikolog yang dilakukan antara pasangan, baik yang sudah menikah maupun belum menikah secara tatap muka ataupun online dengan durasi 60 menit/sesi.",
     category: "psychology",
     resourceType: "course",
-    url: "https://menjadimanusia.id/programs",
+    url: "https://www.ibunda.id/konseling/couple",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1527137341206-1a2ab86131f9?w=600&auto=format&fit=crop&q=80",
     likes: 194,
-    creator: "Menjadi Manusia Co.",
+    creator: "Ibunda.id",
     createdAt: "2026-03-24T08:12:00Z",
   },
 
@@ -555,32 +524,58 @@ export const INITIAL_RESOURCES: Resource[] = [
   // HEALTH & INTIMACY
   {
     id: "health-intimacy-1",
-    title: "Urutan Tes Kesehatan / Pre-marital Check Up Wajib Pengantin",
-    description:
-      "Pedoman persiapan fisik: cek golongan darah, screening penyakit menular, imunisasi Tetanus Toksoid (TT) calon pengantin wanita, dan rujukan ke Puskesmas gratis.",
+    title: "Pre-marital Check Up Wajib Pengantin",
+    description: "Pedoman persiapan pemeriksaan kesehatan calon pengantin.",
     category: "health-intimacy",
     resourceType: "website",
-    url: "https://www.halodoc.com/artikel/catat-ini-tes-kesehatan-yang-perlu-dilakukan-sebelum-menikah",
+    url: "https://www.halodoc.com/kesehatan/cek-pra-nikah?srsltid=AfmBOopQuCrXOe2rCvmqwvnWk3sLFETmkApYK7vbUu0TgOlY_27FB-LB",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&auto=format&fit=crop&q=80",
     likes: 184,
     creator: "Tim Halodoc Medis",
     createdAt: "2026-05-22T04:40:00Z",
   },
+  {
+    id: "health-intimacy-2",
+    title: "Fiqih Kontemporer Hubungan Intim Suami Istri",
+    description: "Prinsip-prinsip hubungan intim sesuai dengan ajaran Islam.",
+    category: "health-intimacy",
+    resourceType: "book",
+    url: "https://www.muslimafiyahpublishing.com/produk-detail/24",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&auto=format&fit=crop&q=80",
+    likes: 184,
+    creator: "dr. Raehanul Bahraen, M.Sc.,Sp.PK",
+    createdAt: "2026-05-22T04:40:00Z",
+  },
+  {
+    id: "health-intimacy-3",
+    title: "Buku Saku Fiqih Hubungan Intim (Pustaka Ibnu Umar)",
+    description:
+      "Buku yang wajib dibaca oleh suami-istri untuk melanggengkan hubungan ikatan pernikahan.",
+    category: "health-intimacy",
+    resourceType: "book",
+    url: "https://yufidstore.com/products/buku-saku-fiqih-hubungan-intim-pustaka-ibnu-umar?srsltid=AfmBOooXxHm6-1BtjTxEFRlOV--UHL1vfQxkRuiHKOvzKm1JuYyE6q7P",
+    thumbnailUrl:
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&auto=format&fit=crop&q=80",
+    likes: 184,
+    creator: "Syaikh Abu Malik Kamal bin as-Sayyid Salim",
+    createdAt: "2026-05-22T04:40:00Z",
+  },
 
   // RUMAH TANGGA
   {
     id: "rumah-tangga-1",
-    title: "Seni Mengelola Konflik Dengan Mertua & Ipar",
+    title: "Manajemen Konflik dalam Rumah Tangga",
     description:
-      "Video tausiyah terstruktur menyeimbangkan peran antara berbakti kepada orang tua dengan menjaga privasi rumah tangga yang mandiri.",
+      "Video pembahasan tentang manajemen konflik dalam rumah tangga.",
     category: "rumah-tangga",
     resourceType: "youtube",
-    url: "https://www.youtube.com/watch?v=q6Ew58K-6bA",
+    url: "https://www.youtube.com/watch?v=EuTAr1TE040",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&auto=format&fit=crop&q=80",
     likes: 228,
-    creator: "Kajian Salim A. Fillah",
+    creator: "Kajian Ustadz Salim A. Fillah",
     createdAt: "2026-05-25T14:10:00Z",
   },
 ];
